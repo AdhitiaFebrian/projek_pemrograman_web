@@ -16,18 +16,24 @@
         </div>
     @endif
 
+    @if (session('success'))
+        <div style="color: green">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <form action="{{ route('books.update', $book->id) }}" method="POST">
         @csrf
         @method('PUT')
 
         <label>Judul:</label><br>
-        <input type="text" name="judul" value="{{ $book->judul }}"><br><br>
+        <input type="text" name="judul" value="{{ old('judul', $book->judul) }}"><br><br>
 
         <label>Penulis:</label><br>
-        <input type="text" name="penulis" value="{{ $book->penulis }}"><br><br>
+        <input type="text" name="penulis" value="{{ old('penulis', $book->penulis) }}"><br><br>
 
         <label>Stok:</label><br>
-        <input type="number" name="stok" value="{{ $book->stok }}"><br><br>
+        <input type="number" name="stok" value="{{ old('stok', $book->stok) }}"><br><br>
 
         <button type="submit">Simpan</button>
     </form>
