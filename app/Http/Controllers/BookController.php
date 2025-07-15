@@ -30,4 +30,21 @@ class BookController extends Controller
 
         return redirect()->route('books.index')->with('success', 'Buku berhasil ditambahkan.');
     }
+    public function edit(Book $book)
+    {
+        return view('books.edit', compact('book'));
+    }
+
+    public function update(Request $request, Book $book)
+    {
+        $request->validate([
+            'judul' => 'required',
+            'penulis' => 'required',
+            'stok' => 'required|integer'
+        ]);
+
+        $book->update($request->all());
+
+        return redirect()->route('books.index')->with('success', 'Buku berhasil diperbarui.');
+    }
 }
