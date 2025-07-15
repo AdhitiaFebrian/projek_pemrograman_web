@@ -1,17 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Daftar Buku</title>
-</head>
-<body>
-    <h1>Daftar Buku</h1>
+@extends('layouts.app')
 
-    {{-- Pesan sukses --}}
-    @if (session('success'))
-        <div style="color: green; margin-bottom: 15px;">
-            {{ session('success') }}
-        </div>
-    @endif
+@section('title', 'Daftar Buku')
+
+@section('content')
+    <h1>Daftar Buku</h1>
 
     {{-- Form Pencarian --}}
     <form method="GET" action="{{ route('books.index') }}" style="margin-bottom: 15px;">
@@ -19,10 +11,6 @@
         <button type="submit">Cari</button>
         <a href="{{ route('books.index') }}">Reset</a>
     </form>
-
-    {{-- Tombol Tambah Buku --}}
-    <a href="{{ route('books.create') }}">Tambah Buku</a>
-    <br><br>
 
     {{-- Tabel Buku --}}
     <table border="1" cellpadding="8" cellspacing="0">
@@ -59,5 +47,4 @@
             @endforelse
         </tbody>
     </table>
-</body>
-</html>
+@endsection
