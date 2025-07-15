@@ -1,13 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Tambah Buku</title>
-</head>
-<body>
+@extends('layouts.app')
+
+@section('title', 'Tambah Buku')
+
+@section('content')
     <h1>Tambah Buku</h1>
 
+    {{-- Tampilkan validasi error --}}
     @if ($errors->any())
-        <div style="color: red; margin-bottom: 10px;">
+        <div style="color: red;">
             <ul>
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>
@@ -18,20 +18,20 @@
 
     <form action="{{ route('books.store') }}" method="POST">
         @csrf
-
-        <label>Judul:</label><br>
-        <input type="text" name="judul" value="{{ old('judul') }}" placeholder="Masukkan judul buku" autofocus><br><br>
-
-        <label>Penulis:</label><br>
-        <input type="text" name="penulis" value="{{ old('penulis') }}" placeholder="Masukkan nama penulis"><br><br>
-
-        <label>Stok:</label><br>
-        <input type="number" name="stok" value="{{ old('stok') }}" placeholder="Masukkan jumlah stok"><br><br>
-
+        <div>
+            <label for="judul">Judul:</label>
+            <input type="text" name="judul" value="{{ old('judul') }}">
+        </div>
+        <div>
+            <label for="penulis">Penulis:</label>
+            <input type="text" name="penulis" value="{{ old('penulis') }}">
+        </div>
+        <div>
+            <label for="stok">Stok:</label>
+            <input type="number" name="stok" value="{{ old('stok') }}">
+        </div>
+        <br>
         <button type="submit">Simpan</button>
+        <a href="{{ route('books.index') }}">Batal</a>
     </form>
-
-    <br>
-    <a href="{{ route('books.index') }}">← Kembali</a>
-</body>
-</html>
+@endsection
