@@ -6,16 +6,22 @@
 <body>
     <h1>Daftar Buku</h1>
 
-    {{-- Pesan sukses (misalnya setelah tambah/edit/hapus) --}}
+    {{-- Pesan sukses --}}
     @if (session('success'))
         <div style="color: green; margin-bottom: 15px;">
             {{ session('success') }}
         </div>
     @endif
 
+    {{-- Form Pencarian --}}
+    <form method="GET" action="{{ route('books.index') }}" style="margin-bottom: 15px;">
+        <input type="text" name="keyword" placeholder="Cari judul buku..." value="{{ request('keyword') }}">
+        <button type="submit">Cari</button>
+        <a href="{{ route('books.index') }}">Reset</a>
+    </form>
+
     {{-- Tombol Tambah Buku --}}
     <a href="{{ route('books.create') }}">Tambah Buku</a>
-
     <br><br>
 
     {{-- Tabel Buku --}}
@@ -39,7 +45,7 @@
                     <td>
                         <a href="{{ route('books.edit', $book->id) }}">Edit</a>
 
-                        <form action="{{ route('books.destroy', $book->id) }}" method="POST" style="display:inline" onsubmit="return confirm('Yakin ingin menghapus buku ini?')">
+                        <form action="{{ route('books.destroy', $book->id) }}" method="POST" style="display:inline;" onsubmit="return confirm('Yakin ingin menghapus buku ini?')">
                             @csrf
                             @method('DELETE')
                             <button type="submit">Hapus</button>

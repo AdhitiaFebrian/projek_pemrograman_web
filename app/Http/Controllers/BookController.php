@@ -7,11 +7,17 @@ use Illuminate\Http\Request;
 
 class BookController extends Controller
 {
-    public function index()
-    {
-        $books = Book::all();
-        return view('books.index', compact('books'));
-    }
+    public function index(Request $request)
+{
+    $keyword = $request->input('keyword');
+
+    $books = Book::when($keyword, function ($query, $keyword) {
+        return $query->where('judul', 'like', "%{$keyword}%");
+    })->get();
+
+    return view('books.index', compact('books', 'keyword'));
+}
+
 
     public function create()
     {
